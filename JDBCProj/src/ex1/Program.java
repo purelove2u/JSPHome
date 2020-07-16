@@ -6,22 +6,30 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 
 public class Program {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		
-		String url = "jdbc:oracle:thin:@192.168.0.219:1521/xepdb1";
-		String sql = "SELECT * FROM NOTICE";
+		String url = "jdbc:oracle:thin:@192.168.0.2:1521/xepdb1";
+		String sql = "SELECT * FROM NOTICE where hit > 10";
 		
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection con = DriverManager.getConnection(url, "sys as sysdba", "12345");
+		Connection con = DriverManager.getConnection(url, "NEWLEC", "12345");
 		PreparedStatement pstmt = con.prepareStatement(sql);
 		ResultSet rs = pstmt.executeQuery();
 		
-		if(rs.next()) {
-			String name = rs.getString("TITLE");
-			System.out.printf("NAME:%s\n", name);			
+		while(rs.next()) {
+			int id = rs.getInt("id");
+			String name = rs.getString("title");
+			String  writerid = rs.getString(3);
+			String content = rs.getString(4);
+			Date regDate = rs.getDate(5);
+			int hit = rs.getInt("hit");
+			System.out.println("-------------------------------------------------------");
+			System.out.printf("ID : %d, TITLE : %s, Writer : %s\nContent : %s\nregDate : %s, hit : %d\n", id, name, writerid, content, regDate, hit);			
+			System.out.println("-------------------------------------------------------");
 		}
 		
 		rs.close();

@@ -12,8 +12,12 @@ pageContext.setAttribute("result", "hello");
 %>
 <body>
 	<%=request.getAttribute("result") %>입니다.<br>
-	${requestScope.result }<br>
 	${result }<br>
-	${param.n ge 3}
+	${requestScope.result }<br>
+	${names[1] }<br>
+	${notice.title }<br>
+	${empty param.n}<br>
+	${header.accept }<br>
+	${pageContext.request.method}
 </body>
 </html>
