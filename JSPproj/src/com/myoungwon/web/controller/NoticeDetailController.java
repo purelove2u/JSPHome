@@ -23,12 +23,12 @@ public class NoticeDetailController extends HttpServlet{
 
 		int id = Integer.parseInt(req.getParameter("id"));
 		
-		String url = "jdbc:oracle:thin:@192.168.0.215:1521/orcl";
+		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
 		String sql = "SELECT * FROM NOTICE where id = ?";
 
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con = DriverManager.getConnection(url, "system", "12345");
+			Connection con = DriverManager.getConnection(url, "NEWLEC", "12345");
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, id);
