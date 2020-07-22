@@ -24,10 +24,29 @@ public class NoticeListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// list?f=title&q=a 라는 형태로 전달될 때		
+		String field_ = req.getParameter("f");
+		String query_ = req.getParameter("q");
+		String page_ = req.getParameter("p");
+		
+		String field = "title";
+		if(field_ != null && !field_.equals("")) {
+			field = field_;
+		}
+		
+		String query = "";
+		if(query_ != null && !query_.equals("")) {
+			query = query_;
+		}
+		
+		int page = 1;
+		if(page_ != null && !page_.equals("")) {
+			page = Integer.parseInt(page_);
+		}
 		
 		NoticeService service = new NoticeService();
 		
-		List<Notice> list = service.getNoticeList();
+		List<Notice> list = service.getNoticeList(field, query, page);
 		
 		req.setAttribute("list", list);
 		req.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(req, resp);;

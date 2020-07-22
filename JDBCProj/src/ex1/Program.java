@@ -12,7 +12,7 @@ public class Program {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		String sql = "SELECT * FROM NOTICE";
 
 		Class.forName("oracle.jdbc.driver.OracleDriver");
