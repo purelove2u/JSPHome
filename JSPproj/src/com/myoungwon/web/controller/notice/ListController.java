@@ -1,4 +1,4 @@
-package com.myoungwon.web.controller;
+package com.myoungwon.web.controller.notice;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,10 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.myoungwon.web.entity.Notice;
+import com.myoungwon.web.entity.NoticeView;
 import com.myoungwon.web.service.NoticeService;
 
 @WebServlet("/notice/list")
-public class NoticeListController extends HttpServlet{
+public class ListController extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,11 +46,13 @@ public class NoticeListController extends HttpServlet{
 		}
 		
 		NoticeService service = new NoticeService();
-		
-		List<Notice> list = service.getNoticeList(field, query, page);
+		List<NoticeView> list = service.getNoticeList(field, query, page);
+		int recordCount = service.getNoticeCount(field, query); 
 		
 		req.setAttribute("list", list);
-		req.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(req, resp);;
+		req.setAttribute("recordCount", recordCount);
+		
+		req.getRequestDispatcher("/WEB-INF/view/notice/list.jsp").forward(req, resp);
 		
 	}
 }

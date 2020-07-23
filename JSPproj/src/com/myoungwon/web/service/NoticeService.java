@@ -10,20 +10,47 @@ import java.util.Date;
 import java.util.List;
 
 import com.myoungwon.web.entity.Notice;
+import com.myoungwon.web.entity.NoticeView;
 
 public class NoticeService {
-	public List<Notice> getNoticeList(){
+	
+	public int removeNoticeAll(int[] ids){
+		
+		return 0;
+	}
+	public int pubNoticeAll(int[] ids){
+		
+		return 0;
+	}
+	public int insertNotice(Notice notice){
+		
+		return 0;
+	}
+	public int deleteNotice(int id){
+		
+		return 0;
+	}
+	public int updateNotice(Notice notice){
+		
+		return 0;
+	}
+	public List<Notice> getNoticeNewestList(){
+		
+		return null;
+	}
+	
+	public List<NoticeView> getNoticeList(){
 		return getNoticeList("title", "", 1);
 	}
-	public List<Notice> getNoticeList(int page){
+	public List<NoticeView> getNoticeList(int page){
 		return getNoticeList("title", "", page);
 	}
-	public List<Notice> getNoticeList(String field/*title, writer_id*/, String query/*A*/, int page){
-		List<Notice> list = new ArrayList<>();
+	public List<NoticeView> getNoticeList(String field/*title, writer_id*/, String query/*A*/, int page){
+		List<NoticeView> list = new ArrayList<>();
 
 		String sql = "select * from (" + 
 				"    select rownum num, n.* " + 
-				"    from (select * from notice where " + field + " like ? order by regdate desc) n " + 
+				"    from (select * from notice_view where " + field + " like ? order by regdate desc) n " + 
 				") " + 
 				"where num between ? and ?";
 		// 1, 11, 21, 31,,,,, -> an = 1 + (page - 1) * 10
@@ -49,10 +76,11 @@ public class NoticeService {
 				String writerId = rs.getString("writer_id");
 				int hit = rs.getInt("hit");
 				String files = rs.getString("files");
-				String content = rs.getString("content");
+			
+				int cmtCount = rs.getInt("cmt_count");
 				
 				// 인자 순서 주의 
-				Notice notice = new Notice(id, title, regdate, writerId, hit, files, content);
+				NoticeView notice = new NoticeView(id, title, regdate, writerId, hit, files,/*comment,*/ cmtCount);
 				list.add(notice);
 			}
 				rs.close();
@@ -85,11 +113,13 @@ public class NoticeService {
 			Connection con = DriverManager.getConnection(url, "NEWLEC", "12345");
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			
-			pstmt.setString(1, "%" + query + "%");
+			pstmt.setString(1, "%"+query+"%");
 			
 			ResultSet rs = pstmt.executeQuery();
 			
-			count = rs.getInt("count");
+			if(rs.next()) {				
+				count = rs.getInt("count");
+			}
 			
 			rs.close();
 			pstmt.close();
