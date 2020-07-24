@@ -20,7 +20,7 @@ import com.myoungwon.web.entity.Notice;
 import com.myoungwon.web.entity.NoticeView;
 import com.myoungwon.web.service.NoticeService;
 
-@WebServlet("/admin/notice/list")
+@WebServlet("/admin/board/notice/list")
 public class ListController extends HttpServlet{
 
 	@Override
@@ -36,11 +36,16 @@ public class ListController extends HttpServlet{
 			}
 			break;
 		case "ÀÏ°ý»èÁ¦":
-			for(String delId : del_ids) {
-				System.out.printf("del_id : %s\n", delId);
+			NoticeService service = new NoticeService();
+			int[] ids = new int[del_ids.length];
+			for(int i=0; i<del_ids.length; i++) {
+				ids[i] = Integer.parseInt(del_ids[i]);
 			}
+			int result = service.deleteNoticeAll(ids);
 			break;
 		}
+		
+		resp.sendRedirect("list");
 	}
 	
 	@Override
