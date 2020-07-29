@@ -154,53 +154,63 @@
 				</div>
 
 				<form action="list" method="post">
-				<div class="notice margin-top">
-					<h3 class="hidden">공지사항 목록</h3>
-					<table class="table">
-						<thead>
-							<tr>
-								<th class="w60">번호</th>
-								<th class="expand">제목</th>
-								<th class="w100">작성자</th>
-								<th class="w100">작성일</th>
-								<th class="w60">조회수</th>
-								<th class="w40">공개</th>
-								<th class="w40">삭제</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="n" items="${list }">
+					<div class="notice margin-top">
+						<h3 class="hidden">공지사항 목록</h3>
+						<table class="table">
+							<thead>
 								<tr>
-									<td>${n.id }</td>
-									<td class="title indent text-align-left"><a
-										href="detail?id=${n.id }">${n.title }</a><span style="color:orange">[${n.cmtCount }]</span></td>
-									<td>${n.writerId}</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd" value="${n.regdate }"/> </td>
-									<td>${n.hit }</td>
-									<td><input type="checkbox" name="open-id" value="${n.id }"></td>
-									<td><input type="checkbox" name="del-id" value="${n.id }"></td>
+									<th class="w60">번호</th>
+									<th class="expand">제목</th>
+									<th class="w100">작성자</th>
+									<th class="w100">작성일</th>
+									<th class="w60">조회수</th>
+									<th class="w40">공개</th>
+									<th class="w40">삭제</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-
-				<c:set var="page" value="${(empty param.p)? 1 : param.p }" />
-				<c:set var="startNum" value="${page-(page-1)%5 }" />
-				<c:set var="lastNum" value="${fn:substringBefore(Math.ceil(recordCount / 10), '.')}" />
-				
-				<div class="indexer margin-top align-right">
-					<h3 class="hidden">현재 페이지</h3>
-					<div>
-						<span class="text-orange text-strong">${(empty param.p)?1:param.p }</span> / ${lastNum } pages
+							</thead>
+							<tbody>
+								<c:forEach var="n" items="${list }">
+									<c:set var="open" value="" />
+									<c:if test="${n.pub}">
+										<c:set var="open" value="checked" />
+									</c:if>
+									<tr>
+										<td>${n.id }</td>
+										<td class="title indent text-align-left"><a
+											href="detail?id=${n.id }">${n.title }</a><span
+											style="color: orange">[${n.cmtCount }]</span></td>
+										<td>${n.writerId}</td>
+										<td><fmt:formatDate pattern="yyyy-MM-dd"
+												value="${n.regdate }" /></td>
+										<td>${n.hit }</td>
+										<td><input type="checkbox" name="open-id" ${open }
+											 value="${n.id }"></td>
+										<td><input type="checkbox" name="del-id" value="${n.id }"></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
-				</div>
 
-				<div class="text-align-right margin-top">
-					<input type="submit" class="btn-text btn-default" name="cmd" value="일괄공개">
-					<input type="submit" class="btn-text btn-default" name="cmd" value="일괄삭제">
-					<a class="btn-text btn-default" href="reg">글쓰기</a>
-				</div>
+					<c:set var="page" value="${(empty param.p)? 1 : param.p }" />
+					<c:set var="startNum" value="${page-(page-1)%5 }" />
+					<c:set var="lastNum"
+						value="${fn:substringBefore(Math.ceil(recordCount / 10), '.')}" />
+
+					<div class="indexer margin-top align-right">
+						<h3 class="hidden">현재 페이지</h3>
+						<div>
+							<span class="text-orange text-strong">${(empty param.p)?1:param.p }</span>
+							/ ${lastNum } pages
+						</div>
+					</div>
+
+					<div class="text-align-right margin-top">
+						<input type="submit" class="btn-text btn-default" name="cmd"
+							value="일괄공개"> <input type="submit"
+							class="btn-text btn-default" name="cmd" value="일괄삭제"> <a
+							class="btn-text btn-default" href="reg">글쓰기</a>
+					</div>
 				</form>
 
 				<div class="margin-top align-center pager">
@@ -216,10 +226,11 @@
 
 					<ul class="-list- center">
 						<c:forEach var="i" begin="0" end="4">
-						<c:if test="${(startNum + i) <= lastNum }">
-							<li><a class="-text- ${(page==(startNum+i))?'orange':''} bold"
-								href="?p=${startNum + i }&f=${param.f }&q=${param.q } ">${startNum + i}</a></li>
-						</c:if>
+							<c:if test="${(startNum + i) <= lastNum }">
+								<li><a
+									class="-text- ${(page==(startNum+i))?'orange':''} bold"
+									href="?p=${startNum + i }&f=${param.f }&q=${param.q } ">${startNum + i}</a></li>
+							</c:if>
 						</c:forEach>
 					</ul>
 

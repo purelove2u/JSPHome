@@ -46,7 +46,7 @@ public class ListController extends HttpServlet{
 		}
 		
 		NoticeService service = new NoticeService();
-		List<NoticeView> list = service.getNoticeList(field, query, page);
+		List<NoticeView> list = service.getNoticePubList(field, query, page);
 		int recordCount = service.getNoticeCount(field, query); 
 		
 		req.setAttribute("list", list);
