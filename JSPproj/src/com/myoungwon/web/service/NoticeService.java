@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +20,50 @@ public class NoticeService {
 		
 		return 0;
 	}
-	public int pubNoticeAll(int[] ids){
+	public int pubNoticeAll(int[] oids, int[] cids){
+		List<String> oidsList = new ArrayList<>();
+		for(int i=0; i<oids.length; i++) {
+			oidsList.add(String.valueOf(oids[i]));
+		}
+		List<String> cidsList = new ArrayList<>();
+		for(int i=0; i<cids.length; i++) {
+			cidsList.add(String.valueOf(cids[i]));
+		}
+				
+		return pubNoticeAll(oidsList, cidsList);
+	}
+	public int pubNoticeAll(List<String> oids, List<String> cids){
 		
-		return 0;
+		String oidsCSV = String.join(",", oids);
+		String cidsCSV = String.join(",", cids);
+		
+		return pubNoticeAll(oidsCSV, cidsCSV);
+	}
+	public int pubNoticeAll(String oidsCSV, String cidsCSV){
+		int result = 0;
+		String sqlOpen = String.format("update notice set pub=1 where id in (%s)", oidsCSV);
+		String sqlClose = String.format("update notice set pub=0 where id in (%s)", cidsCSV);
+		
+		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con = DriverManager.getConnection(url, "NEWLEC", "12345");
+			Statement stOpen = con.createStatement();
+			result += stOpen.executeUpdate(sqlOpen);
+			
+			Statement stClose = con.createStatement();
+			result += stClose.executeUpdate(sqlClose);
+			
+			stOpen.close();
+			stClose.close();
+			con.close();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	public int insertNotice(Notice notice){
 		int result = 0;
