@@ -44,7 +44,7 @@ public class NoticeService {
 		String sqlOpen = String.format("update notice set pub=1 where id in (%s)", oidsCSV);
 		String sqlClose = String.format("update notice set pub=0 where id in (%s)", cidsCSV);
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -70,7 +70,7 @@ public class NoticeService {
 		
 		String sql = "insert into notice(title, content, writer_id, pub, files, regdate) values(?, ?, ?, ?, ?, sysdate)";
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -123,7 +123,7 @@ public class NoticeService {
 		// 1, 11, 21, 31,,,,, -> an = 1 + (page - 1) * 10
 		// 10, 20, 30, 40,,,,,-> page * 10
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -172,7 +172,7 @@ public class NoticeService {
 		// 1, 11, 21, 31,,,,, -> an = 1 + (page - 1) * 10
 		// 10, 20, 30, 40,,,,,-> page * 10
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -222,7 +222,7 @@ public class NoticeService {
 					+ " from (select * from notice where "+field+" like ? order by regdate desc) n "  
 					+ ") ";
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -254,7 +254,7 @@ public class NoticeService {
 		
 		String sql = "select * from notice where id=?";
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -300,7 +300,7 @@ public class NoticeService {
 				"    and rownum = 1" + 
 				") ";
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -345,7 +345,7 @@ public class NoticeService {
 				"            and rownum = 1 " + 
 				") ";
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -394,7 +394,7 @@ public class NoticeService {
 		
 		String sql = "delete notice where id in ("+params+")";
 		
-		String url = "jdbc:oracle:thin:@192.168.0.227:1521/xepdb1";
+		String url = "jdbc:oracle:thin:@192.168.0.5:1521/xepdb1";
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");

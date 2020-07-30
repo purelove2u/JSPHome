@@ -41,9 +41,9 @@ public class ListController extends HttpServlet{
 				System.out.printf("open_id : %s\n", openId);
 			}
 			List<String> oids = Arrays.asList(open_ids);
-			List<String> cids = new ArrayList(Arrays.asList());
+			List<String> cids = new ArrayList(Arrays.asList(ids));
 			cids.removeAll(oids);
-			
+			System.out.println(cids);
 //			for(int i=0; i<ids.length; i++) {
 //				//1. 현재 id가 open된 상태냐
 //				if(oids.contains(ids[i])) {
