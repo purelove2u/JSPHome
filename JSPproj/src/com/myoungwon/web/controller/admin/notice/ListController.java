@@ -36,7 +36,7 @@ public class ListController extends HttpServlet{
 		NoticeService service = new NoticeService();
 		
 		switch(cmd) {
-		case "¿œ∞˝∞¯∞≥":
+		case "ÏùºÍ¥ÑÍ≥µÍ∞ú":
 			for(String openId : open_ids) {
 				System.out.printf("open_id : %s\n", openId);
 			}
@@ -45,7 +45,7 @@ public class ListController extends HttpServlet{
 			cids.removeAll(oids);
 			System.out.println(cids);
 //			for(int i=0; i<ids.length; i++) {
-//				//1. «ˆ¿Á id∞° openµ» ªÛ≈¬≥ƒ
+//				//1. ÔøΩÔøΩÔøΩÔøΩ idÔøΩÔøΩ openÔøΩÔøΩ ÔøΩÔøΩÔøΩ¬≥ÔøΩ
 //				if(oids.contains(ids[i])) {
 //					pub = 1;
 //				}else {
@@ -58,7 +58,7 @@ public class ListController extends HttpServlet{
 			
 			break;
 			
-		case "¿œ∞˝ªË¡¶":
+		case "ÏùºÍ¥ÑÏÇ≠Ï†ú":
 			int[] ids1 = new int[del_ids.length];
 			for(int i=0; i<del_ids.length; i++) {
 				ids1[i] = Integer.parseInt(del_ids[i]);
@@ -72,7 +72,7 @@ public class ListController extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// list?f=title&q=a ∂Û¥¬ «¸≈¬∑Œ ¿¸¥ﬁµ… ∂ß		
+		// list?f=title&q=a ÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩ¬∑ÔøΩ ÔøΩÔøΩÔøΩﬁµÔøΩ ÔøΩÔøΩ		
 		String field_ = req.getParameter("f");
 		String query_ = req.getParameter("q");
 		String page_ = req.getParameter("p");
